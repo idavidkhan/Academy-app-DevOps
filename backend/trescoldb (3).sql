@@ -1,0 +1,400 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1:3306
+-- Generation Time: Jul 22, 2025 at 06:05 PM
+-- Server version: 8.3.0
+-- PHP Version: 8.2.18
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `trescoldb`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `about`
+--
+
+DROP TABLE IF EXISTS `about`;
+CREATE TABLE IF NOT EXISTS `about` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `section` varchar(255) DEFAULT NULL,
+  `card_heading` varchar(255) DEFAULT NULL,
+  `card_paragraph` text,
+  `trainer_name` varchar(255) DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `quote` text,
+  `bio` text,
+  `image` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=107 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `about`
+--
+
+INSERT INTO `about` (`id`, `section`, `card_heading`, `card_paragraph`, `trainer_name`, `title`, `quote`, `bio`, `image`, `created_at`) VALUES
+(103, 'mission', 'Our Mission', '<p dir=\"auto\" style=\"white-space: pre-wrap;\" id=\"isPasted\"><u><strong>This solution provides three separate tables with tailored forms for adding and editing content, maintaining the Froala Editor functionality as requested. Let me know if you need further adjustments or additional features!</strong></u></p><section><strong><u><br></u></strong></section><section><br></section>', NULL, NULL, NULL, NULL, NULL, '2025-07-21 12:47:32'),
+(104, 'vision', 'Our Vision', '<p dir=\"auto\" style=\"white-space: pre-wrap;\" id=\"isPasted\"><strong>This solution provides three separate tables with tailored forms for adding and editing content, maintaining the Froala Editor functionality as requested. Let me know if you need further adjustments or additional features!</strong></p><section><strong><br></strong></section><section><br></section>', NULL, NULL, NULL, NULL, NULL, '2025-07-21 12:47:32'),
+(105, 'why', 'Why TRESCOL', '<p dir=\"auto\" style=\"white-space: pre-wrap;\" id=\"isPasted\">This solution provides three separate tables with tailored forms for adding and editing content, maintaining the Froala Editor functionality as requested. Let me know if you need further adjustments or additional features!</p><section><br></section><section><br></section>', NULL, NULL, NULL, NULL, NULL, '2025-07-21 12:47:32'),
+(106, 'founder', NULL, NULL, 'Sir Irfan Ullah Khan', 'TRESCOL is not just a tech institute—it’s a mindset revolution. We’re empowering people today to lead the innovations of tomorrow.”', 'TRESCOL is not just a tech institute—it’s a mindset revolution. We’re empowering people today to lead the innovations of tomorrow.”', 'TRESCOL is not just a tech institute—it’s a mindset revolution. We’re empowering people today to lead the innovations of tomorrow.”TRESCOL is not just a tech institute—it’s a mindset revolution. We’re empowering people today to lead the innovations of tomorrow.”', '/uploads/about/1753102249396.jpeg', '2025-07-21 12:50:49'),
+(98, 'custom', 'Addition Section', '<p>At TRESCOL, we don&#39;t just deliver courses &ndash; we create transformation. Our curriculum is curated by industry experts, our trainers are practitioners, and our environment is built for serious learners. From hands-on labs to real-world simulations, every experience is engineered to move you closer to mastery. We blend global standards with localized relevance, ensuring that every student walks out prepared for both the market and the mission. Whether you&#39;re a beginner looking to step into the world of cybersecurity or a professional aiming to scale up your AI expertise &mdash; TRESCOL is where YOUR &nbsp;journey begins and evolves.&nbsp;</p>', NULL, NULL, NULL, NULL, NULL, '2025-07-19 17:38:39');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admins`
+--
+
+DROP TABLE IF EXISTS `admins`;
+CREATE TABLE IF NOT EXISTS `admins` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `username` varchar(100) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `admins`
+--
+
+INSERT INTO `admins` (`id`, `username`, `password`) VALUES
+(1, 'admin', '$2a$10$DgLXvPHA5188SXoxw2I5P.pyHctTKWLd5MbtQxuk14ylC51cL8eb.');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bank_info`
+--
+
+DROP TABLE IF EXISTS `bank_info`;
+CREATE TABLE IF NOT EXISTS `bank_info` (
+  `BankID` int NOT NULL AUTO_INCREMENT,
+  `bank_name` varchar(100) NOT NULL,
+  `account_title` varchar(100) NOT NULL,
+  `account_number` varchar(100) NOT NULL,
+  `iban` varchar(100) NOT NULL,
+  `branch_code` varchar(50) NOT NULL,
+  `branch_address` text NOT NULL,
+  PRIMARY KEY (`BankID`)
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `bank_info`
+--
+
+INSERT INTO `bank_info` (`BankID`, `bank_name`, `account_title`, `account_number`, `iban`, `branch_code`, `branch_address`) VALUES
+(7, 'UBL', 'Trescol', '25977485966', 'PK257496574895874', '4929', 'Swabi');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `contact_info`
+--
+
+DROP TABLE IF EXISTS `contact_info`;
+CREATE TABLE IF NOT EXISTS `contact_info` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `phone` varchar(50) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `support_email` varchar(100) DEFAULT NULL,
+  `office_name` varchar(100) DEFAULT NULL,
+  `address_line1` varchar(255) DEFAULT NULL,
+  `address_line2` varchar(255) DEFAULT NULL,
+  `city` varchar(100) DEFAULT NULL,
+  `country` varchar(100) DEFAULT NULL,
+  `working_days` varchar(100) DEFAULT NULL,
+  `weekend` varchar(100) DEFAULT NULL,
+  `map_location` text,
+  `facebook` varchar(255) DEFAULT NULL,
+  `linkedin` varchar(255) DEFAULT NULL,
+  `twitter` varchar(255) DEFAULT NULL,
+  `github` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `contact_info`
+--
+
+INSERT INTO `contact_info` (`id`, `phone`, `email`, `support_email`, `office_name`, `address_line1`, `address_line2`, `city`, `country`, `working_days`, `weekend`, `map_location`, `facebook`, `linkedin`, `twitter`, `github`, `created_at`) VALUES
+(8, '03139804929', 'shaheenapps1@gmail.com', 'shaheenapps1@gmail.com', 'Main Jinnah Avenue,G-6/3 Blue Area Islamabad  Pakistan', 'Mohalla Grabi, Tano, Tehsil Lahor, Distt Swabi', 'Mohalla Grabi, Tano, Tehsil Lahor, Distt Swabi', 'Swabi', 'Pakistan', 'Monday – Friday: 9:00 AM – 5:00 PM', 'Saturday – Sunday: Closed', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3324.880124759589!2d72.82919118071304!3d33.55649077504272!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38df999324e8b081%3A0x4436b8765030008!2sIslamabad%20International%20Airport!5e0!3m2!1sen!2s!4v1753085274732!5m2!1sen!2s', 'https://web.facebook.com/', 'https://pk.linkedin.com/', 'https://x.com/', 'https://github.com/', '2025-07-21 08:04:29');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `contact_messages`
+--
+
+DROP TABLE IF EXISTS `contact_messages`;
+CREATE TABLE IF NOT EXISTS `contact_messages` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `phone` varchar(50) NOT NULL,
+  `subject` varchar(255) NOT NULL,
+  `message` text NOT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `contact_messages`
+--
+
+INSERT INTO `contact_messages` (`id`, `name`, `email`, `phone`, `subject`, `message`, `created_at`) VALUES
+(10, 'Zaheer Abbas', 'shaheenapps1@gmail.com', '03139804929', 'Here\'s your updated Messages.jsx component with the following features:  ✅ Shows only the first few words (max 80 characters) of the message in the table ✅ Adds a \"View\" button that navigates to a separate MessageDetails page (not a modal) ✅ Passes the fu', 'Here\'s your updated Messages.jsx component with the following features:\n\n✅ Shows only the first few words (max 80 characters) of the message in the table\n✅ Adds a \"View\" button that navigates to a separate MessageDetails page (not a modal)\n✅ Passes the full message data via React Router\'s useNavigate and useLocationHere\'s your updated Messages.jsx component with the following features:\n\n✅ Shows only the first few words (max 80 characters) of the message in the table\n✅ Adds a \"View\" button that navigates to a separate MessageDetails page (not a modal)\n✅ Passes the full message data via React Router\'s useNavigate and useLocationHere\'s your updated Messages.jsx component with the following features:\n\n✅ Shows only the first few words (max 80 characters) of the message in the table\n✅ Adds a \"View\" button that navigates to a separate MessageDetails page (not a modal)\n✅ Passes the full message data via React Router\'s useNavigate and useLocationHere\'s your updated Messages.jsx component with the following features:\n\n✅ Shows only the first few words (max 80 characters) of the message in the table\n✅ Adds a \"View\" button that navigates to a separate MessageDetails page (not a modal)\n✅ Passes the full message data via React Router\'s useNavigate and useLocationHere\'s your updated Messages.jsx component with the following features:\n\n✅ Shows only the first few words (max 80 characters) of the message in the table\n✅ Adds a \"View\" button that navigates to a separate MessageDetails page (not a modal)\n✅ Passes the full message data via React Router\'s useNavigate and useLocationHere\'s your updated Messages.jsx component with the following features:\n\n✅ Shows only the first few words (max 80 characters) of the message in the table\n✅ Adds a \"View\" button that navigates to a separate MessageDetails page (not a modal)\n✅ Passes the full message data via React Router\'s useNavigate and useLocationHere\'s your updated Messages.jsx component with the following features:\n\n✅ Shows only the first few words (max 80 characters) of the message in the table\n✅ Adds a \"View\" button that navigates to a separate MessageDetails page (not a modal)\n✅ Passes the full message data via React Router\'s useNavigate and useLocationHere\'s your updated Messages.jsx component with the following features:\n\n✅ Shows only the first few words (max 80 characters) of the message in the table\n✅ Adds a \"View\" button that navigates to a separate MessageDetails page (not a modal)\n✅ Passes the full message data via React Router\'s useNavigate and useLocationHere\'s your updated Messages.jsx component with the following features:\n\n✅ Shows only the first few words (max 80 characters) of the message in the table\n✅ Adds a \"View\" button that navigates to a separate MessageDetails page (not a modal)\n✅ Passes the full message data via React Router\'s useNavigate and useLocationHere\'s your updated Messages.jsx component with the following features:\n\n✅ Shows only the first few words (max 80 characters) of the message in the table\n✅ Adds a \"View\" button that navigates to a separate MessageDetails page (not a modal)\n✅ Passes the full message data via React Router\'s useNavigate and useLocationHere\'s your updated Messages.jsx component with the following features:\n\n✅ Shows only the first few words (max 80 characters) of the message in the table\n✅ Adds a \"View\" button that navigates to a separate MessageDetails page (not a modal)\n✅ Passes the full message data via React Router\'s useNavigate and useLocationHere\'s your updated Messages.jsx component with the following features:\n\n✅ Shows only the first few words (max 80 characters) of the message in the table\n✅ Adds a \"View\" button that navigates to a separate MessageDetails page (not a modal)\n✅ Passes the full message data via React Router\'s useNavigate and useLocationHere\'s your updated Messages.jsx component with the following features:\n\n✅ Shows only the first few words (max 80 characters) of the message in the table\n✅ Adds a \"View\" button that navigates to a separate MessageDetails page (not a modal)\n✅ Passes the full message data via React Router\'s useNavigate and useLocationHere\'s your updated Messages.jsx component with the following features:\n\n✅ Shows only the first few words (max 80 characters) of the message in the table\n✅ Adds a \"View\" button that navigates to a separate MessageDetails page (not a modal)\n✅ Passes the full message data via React Router\'s useNavigate and useLocationHere\'s your updated Messages.jsx component with the following features:\n\n✅ Shows only the first few words (max 80 characters) of the message in the table\n✅ Adds a \"View\" button that navigates to a separate MessageDetails page (not a modal)\n✅ Passes the full message data via React Router\'s useNavigate and useLocationHere\'s your updated Messages.jsx component with the following features:\n\n✅ Shows only the first few words (max 80 characters) of the message in the table\n✅ Adds a \"View\" button that navigates to a separate MessageDetails page (not a modal)\n✅ Passes the full message data via React Router\'s useNavigate and useLocationHere\'s your updated Messages.jsx component with the following features:\n\n✅ Shows only the first few words (max 80 characters) of the message in the table\n✅ Adds a \"View\" button that navigates to a separate MessageDetails page (not a modal)\n✅ Passes the full message data via React Router\'s useNavigate and useLocationHere\'s your updated Messages.jsx component with the following features:\n\n✅ Shows only the first few words (max 80 characters) of the message in the table\n✅ Adds a \"View\" button that navigates to a separate MessageDetails page (not a modal)\n✅ Passes the full message data via React Router\'s useNavigate and useLocation', '2025-07-21 05:05:35'),
+(11, 'Zaheer Abbas', 'Zabbas4343@gmail.com', '03139804929', 'Submission failed. Try again.', 'fdsfsf', '2025-07-21 06:17:41'),
+(12, 'Zaheer Abbas', 'Zabbas4343@gmail.com', '03139804929', 'Correct Link to Copy', 'to copy only the src value from the <iframe> tag, not the entire HTML. The src value is the URL that points to the map data, and that\'s what the form expects.', '2025-07-21 08:09:50');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `courses`
+--
+
+DROP TABLE IF EXISTS `courses`;
+CREATE TABLE IF NOT EXISTS `courses` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `trainer_name` varchar(255) DEFAULT NULL,
+  `description` text,
+  `duration` varchar(50) DEFAULT NULL,
+  `fees` varchar(50) DEFAULT NULL,
+  `learning_outcomes` text,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `trainer_id` int DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `courses`
+--
+
+INSERT INTO `courses` (`id`, `title`, `image`, `trainer_name`, `description`, `duration`, `fees`, `learning_outcomes`, `created_at`, `trainer_id`) VALUES
+(49, 'Database', 'uploads/courses/1753097632746.png', NULL, '<p>You&#39;re very welcome! 😊<br data-start=\"23\" data-end=\"26\" id=\"isPasted\">If you need any more help styling your admin panel or tweaking functionality, just let me know. Good luck with TRESCOLSkill &mdash; it&rsquo;s shaping up nicely! 🚀💻</p>', ' 3 Days (20 Hours)', 'PKR 20,000 ', '<ul style=\"list-style-type: disc;\"><li style=\"font-weight: bold;\"><strong>You&#39;re very welcome! 😊<br data-start=\"23\" data-end=\"26\" id=\"isPasted\">If you need any more&nbsp;</strong></li><li style=\"font-weight: bold;\"><strong>help styling your admin p</strong></li><li style=\"font-weight: bold;\"><strong>anel or tweaking functionality,</strong></li><li style=\"font-weight: bold;\"><strong>&nbsp;just let me know. Good luck with&nbsp;</strong></li><li style=\"font-weight: bold;\"><strong>TRESCOLSkill &mdash; it&rsquo;s shaping up nicely! 🚀💻</strong></li></ul>', '2025-07-21 11:33:52', 26),
+(50, 'English', 'uploads/courses/1753102554613.png', NULL, '<p>TRESCOL is not just a tech institute&mdash;it&rsquo;s a mindset revolution. We&rsquo;re empowering people today to lead the innovations of tomorrow.&rdquo;TRESCOL is not just a tech institute&mdash;it&rsquo;s a mindset revolution. We&rsquo;re empowering people today to lead the innovations of tomorrow.&rdquo;</p>', ' 3 Days (20 Hours)', 'PKR 20,000 ', '<p>TRESCOL is not just a tech institute&mdash;</p><p>it&rsquo;s a mindset revolution. We&rsquo;re empowering&nbsp;</p><p>people today to lead the innovations of tomorrow.&rdquo;</p>', '2025-07-21 12:55:54', 27);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `course_schedules`
+--
+
+DROP TABLE IF EXISTS `course_schedules`;
+CREATE TABLE IF NOT EXISTS `course_schedules` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `course_id` int NOT NULL,
+  `start_date` datetime NOT NULL,
+  `end_date` datetime NOT NULL,
+  `venue` varchar(255) NOT NULL,
+  `timing` varchar(100) NOT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `course_id` (`course_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `course_schedules`
+--
+
+INSERT INTO `course_schedules` (`id`, `course_id`, `start_date`, `end_date`, `venue`, `timing`, `created_at`) VALUES
+(11, 44, '2025-07-24 00:00:00', '2025-07-23 00:00:00', ' TRESCOL ', 'Mon - Wed 6PM - 8PM', '2025-07-20 17:22:01'),
+(7, 42, '2025-07-30 19:00:00', '2025-07-25 00:00:00', ' TRESCOL ', 'Mon - Fri 5PM - 10PM', '2025-07-20 07:25:20'),
+(9, 41, '2025-07-22 00:00:00', '2025-07-19 14:00:00', 'pindi', 'Mon - Wed 6PM - 8PM', '2025-07-20 16:56:11'),
+(10, 43, '2025-07-25 04:02:00', '2025-07-23 06:00:00', ' TRESCOL ', 'Mon - Wed 6PM - 12PM', '2025-07-20 17:02:49'),
+(12, 45, '2025-07-20 22:30:00', '2025-07-19 22:30:00', ' TRESCOL ', 'Mon - Wed 6PM - 8PM', '2025-07-20 17:30:55'),
+(13, 47, '2025-07-21 15:42:00', '2025-07-20 15:42:00', ' TRESCOL ', 'Mon - Wed 6PM - 8PM', '2025-07-21 10:42:28'),
+(14, 49, '2025-07-21 00:00:00', '2025-07-20 12:35:00', ' TRESCOL ', 'Mon-Wed,  6PM - 8PM', '2025-07-21 11:36:28'),
+(16, 50, '2025-07-22 22:55:00', '2025-07-21 22:55:00', ' TRESCOL ', 'Mon - Wed 6PM - 8PM', '2025-07-22 17:55:53');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `faqs`
+--
+
+DROP TABLE IF EXISTS `faqs`;
+CREATE TABLE IF NOT EXISTS `faqs` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `question` text NOT NULL,
+  `answer` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `faqs`
+--
+
+INSERT INTO `faqs` (`id`, `question`, `answer`) VALUES
+(13, 'How do I enroll in a course on the platform?', '<p>How do I enroll in a course on the platform? How do I enroll in a course on the platform? How do I enroll in a course on the platform? How do I enroll in a course on the platform?</p>');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `news`
+--
+
+DROP TABLE IF EXISTS `news`;
+CREATE TABLE IF NOT EXISTS `news` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `author` varchar(255) DEFAULT NULL,
+  `category` varchar(255) DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `title_tag` varchar(255) DEFAULT NULL,
+  `duration` varchar(100) DEFAULT NULL,
+  `meta_description` text,
+  `content` longtext,
+  `written_by` varchar(255) DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=52 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `news`
+--
+
+INSERT INTO `news` (`id`, `author`, `category`, `title`, `title_tag`, `duration`, `meta_description`, `content`, `written_by`, `image`, `created_at`) VALUES
+(50, 'zaheer abbas', 'Cybersecurity | Business Perspective', 'Why Email Remains Cybersecurity\'s Top Threat in 2025 ', 'Why Email Remains Cybersecurity\'s Top Threat in 2025 ', '10 Minute Read ', 'Despite AI and blockchain hype, email phishing still causes 91% of breaches. Learn why and how  to secure your systems in 2025. ', '<p dir=\"auto\" style=\"white-space: pre-wrap;\" id=\"isPasted\">Since you previously shared a Navbar.jsx component for a React application, the table modification might be related to backend data used by pages like /check-status, /register, or /upload-slip. If these pages interact with a MySQL database (e.g., via a Node.js/Express backend), ensure:</p><p dir=\"auto\" style=\"white-space: pre-wrap;\" id=\"isPasted\">Since you previously shared a Navbar.jsx component for a React application, the table modification might be related to backend data used by pages like /check-status, /register, or /upload-slip. If these pages interact with a MySQL database (e.g., via a Node.js/Express backend), ensure:</p><p dir=\"auto\" style=\"white-space: pre-wrap;\" id=\"isPasted\">Since you previously shared a Navbar.jsx component for a React application, the table modification might be related to backend data used by pages like /check-status, /register, or /upload-slip. If these pages interact with a MySQL database (e.g., via a Node.js/Express backend), ensure:</p><p dir=\"auto\" style=\"white-space: pre-wrap;\" id=\"isPasted\">Since you previously shared a Navbar.jsx component for a React application, the table modification might be related to backend data used by pages like /check-status, /register, or /upload-slip. If these pages interact with a MySQL database (e.g., via a Node.js/Express backend), ensure:</p><p dir=\"auto\" style=\"white-space: pre-wrap;\" id=\"isPasted\">Since you previously shared a Navbar.jsx component for a React application, the table modification might be related to backend data used by pages like /check-status, /register, or /upload-slip. If these pages interact with a MySQL database (e.g., via a Node.js/Express backend), ensure:</p><p dir=\"auto\" style=\"white-space: pre-wrap;\" id=\"isPasted\">Since you previously shared a Navbar.jsx component for a React application, the table modification might be related to backend data used by pages like /check-status, /register, or /upload-slip. If these pages interact with a MySQL database (e.g., via a Node.js/Express backend), ensure:</p>', 'Salaar Sultan  Head of Content and Digital Communication, TRESCOL', '1752830319702.jpg', '2025-07-18 14:18:39'),
+(51, 'Noman khan', 'Cybersecurity | Business Perspective', 'Why Email Remains Cybersecurity\'s Top Threat in 2025 ', 'Why Email Remains Cybersecurity\'s Top Threat in 2025 ', '4 Minute Read ', 'No-code AI tools are revolutionizing work. Discover how anyone can leverage AI, without writing a single line of code.', '<p>Why Email Remains Cybersecurity&#39;s Top Threat in 2025 Why Email Remains Cybersecurity&#39;s Top Threat in 2025 Why Email Remains Cybersecurity&#39;s Top Threat in 2025 Why Email Remains Cybersecurity&#39;s Top Threat in 2025 Why Email Remains Cybersecurity&#39;s Top Threat in 2025 Why Email Remains Cybersecurity&#39;s Top Threat in 2025 Why Email Remains Cybersecurity&#39;s Top Threat in 2025 Why Email Remains Cybersecurity&#39;s Top Threat in 2025 Why Email Remains Cybersecurity&#39;s Top Threat in 2025 Why Email Remains Cybersecurity&#39;s Top Threat in 2025 Why Email Remains Cybersecurity&#39;s Top Threat in 2025 Why Email Remains Cybersecurity&#39;s Top Threat in 2025 Why Email Remains Cybersecurity&#39;s Top Threat in 2025 Why Email Remains Cybersecurity&#39;s Top Threat in 2025 Why Email Remains Cybersecurity&#39;s Top Threat in 2025 Why Email Remains Cybersecurity&#39;s Top Threat in 2025&nbsp;</p>', 'Sir Shah Hussain ', '1752985611610.jpg', '2025-07-20 09:26:51');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `registrations`
+--
+
+DROP TABLE IF EXISTS `registrations`;
+CREATE TABLE IF NOT EXISTS `registrations` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `phone` varchar(20) DEFAULT NULL,
+  `cnic` varchar(15) DEFAULT NULL,
+  `application_id` varchar(20) DEFAULT NULL,
+  `last_degree` varchar(100) DEFAULT NULL,
+  `skills` text,
+  `course_id` int DEFAULT NULL,
+  `course_title` varchar(100) NOT NULL DEFAULT '',
+  `slip` varchar(255) DEFAULT NULL,
+  `status` enum('Payment Pending','Pending','Verified','Rejected') DEFAULT 'Payment Pending',
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `unique_application_id` (`application_id`),
+  KEY `course_id` (`course_id`),
+  KEY `email` (`email`),
+  KEY `cnic` (`cnic`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `registrations`
+--
+
+INSERT INTO `registrations` (`id`, `name`, `email`, `phone`, `cnic`, `application_id`, `last_degree`, `skills`, `course_id`, `course_title`, `slip`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'Zaheer Abbas', 'Zabbas4343@gmail.com', '03139804929', '12345678901234567', 'APP001', 'BS CS', 'Full Stack Developer', 49, 'Database', '1753205954956-slip.jpg', 'Verified', '2025-07-21 10:00:00', '2025-07-21 10:00:00'),
+(2, 'Noman Khan', 'Nomankhan4929@gmail.com', '03112724053', '12345678901234568', 'APP002', 'Matric', 'Driver', 49, 'Database', '1753206829465-slip.jpg', 'Verified', '2025-07-21 10:00:00', '2025-07-21 10:00:00'),
+(3, 'M.Dawood', 'dawoodkhan4923@gmail.com', '03258407526', '12345678901234569', 'APP003', 'BS CS', 'DevOps Engineer', 50, 'English', '1753207097621-slip.jpg', 'Verified', '2025-07-21 10:00:00', '2025-07-21 10:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `subscribers`
+--
+
+DROP TABLE IF EXISTS `subscribers`;
+CREATE TABLE IF NOT EXISTS `subscribers` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `email` varchar(191) NOT NULL,
+  `subscribed_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `unique_email` (`email`)
+) ENGINE=MyISAM AUTO_INCREMENT=53 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `subscribers`
+--
+
+INSERT INTO `subscribers` (`id`, `email`, `subscribed_at`) VALUES
+(8, 'ismailkhan56301@gmail.com', '2025-07-18 10:27:38'),
+(47, 'Zabbas4343@gmail.com', '2025-07-21 08:22:21'),
+(48, 'shaheenapps1@gmail.com', '2025-07-21 08:22:51'),
+(49, 'abbas2556@gmail.com', '2025-07-21 08:23:47'),
+(50, 'shahhussain@gmail.com', '2025-07-21 08:24:11'),
+(52, 'Zabbas4445@gmail.com', '2025-07-21 12:54:09');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `teachers`
+--
+
+DROP TABLE IF EXISTS `teachers`;
+CREATE TABLE IF NOT EXISTS `teachers` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) DEFAULT NULL,
+  `designation` varchar(150) DEFAULT NULL,
+  `bio` text,
+  `languages` varchar(255) DEFAULT NULL,
+  `specialties` varchar(255) DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `linkedin` varchar(255) DEFAULT NULL,
+  `twitter` varchar(255) DEFAULT NULL,
+  `facebook` varchar(255) DEFAULT NULL,
+  `github` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `teachers`
+--
+
+INSERT INTO `teachers` (`id`, `name`, `designation`, `bio`, `languages`, `specialties`, `image`, `linkedin`, `twitter`, `facebook`, `github`, `created_at`) VALUES
+(26, 'Zaheer Abbas ', 'Web Developer', '<p>You&#39;re very welcome! 😊<br data-start=\"23\" data-end=\"26\" id=\"isPasted\">If you need any more help styling your admin panel or tweaking functionality, just let me know. Good luck with TRESCOLSkill &mdash; it&rsquo;s shaping up nicely! 🚀💻</p>', 'Urdu and English ', '<p>Web Developer</p><p>Full Stack Developer</p><p>React Js</p><p>Node Js</p><p><br></p>', 'teachers/1753097581952.png', 'https://pk.linkedin.com/', 'https://x.com/', 'https://web.facebook.com/', 'https://github.com/', '2025-07-21 11:33:01'),
+(27, 'Dr. Hussain Mureed ', 'Data Scientistic', '<p>TRESCOL is not just a tech institute&mdash;it&rsquo;s a mindset revolution. We&rsquo;re empowering people today to lead the innovations of tomorrow.&rdquo;</p>', 'urdu, English, Pashto', '<p>TRESCOL is not just a tech institute&mdash;it&rsquo;s a mindset revolution. We&rsquo;re empowering people today to lead the innovations of tomorrow.&rdquo;</p>', 'teachers/1753102508124.jpeg', 'https://pk.linkedin.com/', 'https://x.com/', 'https://web.facebook.com/', 'https://github.com/', '2025-07-21 12:55:08');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `video`
+--
+
+DROP TABLE IF EXISTS `video`;
+CREATE TABLE IF NOT EXISTS `video` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) DEFAULT NULL,
+  `thumbnail` varchar(255) DEFAULT NULL,
+  `videoUrl` varchar(500) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `video`
+--
+
+INSERT INTO `video` (`id`, `title`, `thumbnail`, `videoUrl`, `created_at`) VALUES
+(24, 'Facebook', 'Uploads/videos/1752989547175.jpg', 'https://www.youtube.com/watch?v=a0WPpaCYWeE&list=RDa0WPpaCYWeE&start_radio=1', '2025-07-20 05:32:27');
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
