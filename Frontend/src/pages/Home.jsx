@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+﻿import React, { useEffect, useState } from "react";
 import { useCourseContext } from "../context/CourseContext";
 import { useNewsContext } from "../context/NewsContext";
 import { useTeacherContext } from "../context/TeacherContext";
@@ -13,6 +13,7 @@ import Background from "../assets/background.png";
 import Hero from "../components/Hero";
 import { useNavigate } from "react-router-dom";
 import DOMPurify from "dompurify";
+import { BASE_URL } from '../config';
 
 function Home() {
   const { schedules, loading: scheduleLoading } = useScheduleContext();
@@ -350,7 +351,7 @@ function Home() {
                 >
                   <div className="overflow-hidden">
                     <img
-                      src={`http://localhost:5000/${course.image || "Uploads/courses/default.jpg"
+                      src={`${BASE_URL}/${course.image || "Uploads/courses/default.jpg"
                         }`}
                       alt={course.title || "Course Image"}
                       className="w-full h-48 object-cover transition-transform duration-300 ease-in-out hover:scale-110"
@@ -367,7 +368,7 @@ function Home() {
                     </h3>
                     <div className="flex items-center gap-3 mb-2">
                       <img
-                        src={`http://localhost:5000/uploads/${course.trainer_image || "teachers/default.jpg"
+                        src={`${BASE_URL}/uploads/${course.trainer_image || "teachers/default.jpg"
                           }`}
                         alt={course.trainer_name || "Trainer"}
                         className="w-10 h-10 rounded-full object-cover"
@@ -538,7 +539,7 @@ function Home() {
                     >
                       <div className="relative mx-4 -mt-6 h-48 overflow-hidden rounded-[2rem] bg-gradient-to-r from-teal-500 to-teal-600 shadow-lg shadow-teal-500/40">
                         <img
-                          src={`http://localhost:5000/uploads/news/${item.image || "default.jpg"}`}
+                          src={`${BASE_URL}/uploads/news/${item.image || "default.jpg"}`}
                           alt={item.title || "News Image"}
                           className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110"
                           onError={(e) =>
@@ -647,7 +648,7 @@ function Home() {
                   <div className="absolute -inset-4 bg-teal-600/5 rounded-[3.5rem] blur-2xl group-hover:bg-teal-600/10 transition-colors"></div>
                   <div className="relative overflow-hidden rounded-[3rem] shadow-2xl">
                     <img
-                      src={`http://localhost:5000/${videoData.thumbnail}`}
+                      src={`${BASE_URL}/${videoData.thumbnail}`}
                       alt="Video Tour Thumbnail"
                       className="w-full aspect-video object-cover transition-transform duration-700 group-hover:scale-110"
                     />
@@ -732,7 +733,7 @@ function Home() {
                     <div className="relative mb-8 pt-4">
                       <div className="absolute -inset-2 bg-teal-500/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
                       <img
-                        src={`http://localhost:5000/uploads/${teacher.image || "default.jpg"}`}
+                        src={`${BASE_URL}/uploads/${teacher.image || "default.jpg"}`}
                         alt={teacher.name || "Teacher"}
                         className="w-48 h-48 mx-auto object-cover rounded-full shadow-2xl relative z-10 border-4 border-white/10"
                       />

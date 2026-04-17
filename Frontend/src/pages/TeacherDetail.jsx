@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+﻿import React, { useEffect } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -7,6 +7,7 @@ import Footer from "../components/Footer";
 import ScrollBtn from "../components/ScrollBtn";
 import DOMPurify from "dompurify";
 import { Linkedin, Twitter, Github, Facebook, User, ArrowLeft, Mail, Globe, Award } from "lucide-react";
+import { BASE_URL } from '../config';
 
 function TeacherDetail() {
   const { id } = useParams();
@@ -64,7 +65,7 @@ function TeacherDetail() {
           <div className="w-full lg:w-1/3 space-y-8" data-aos="fade-right">
             <div className="relative rounded-[3rem] overflow-hidden shadow-premium group">
               <img
-                src={`http://localhost:5000/uploads/${teacher.image || "default.jpg"}`}
+                src={`${BASE_URL}/uploads/${teacher.image || "default.jpg"}`}
                 alt={teacher.name}
                 className="w-full h-[450px] object-cover transition-transform duration-700 group-hover:scale-110"
               />

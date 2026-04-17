@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+﻿import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import AddVideo from "./AddVideo";
+import { BASE_URL } from '../../config';
 
 const DeleteVideo = () => {
   const navigate = useNavigate();
@@ -9,7 +10,7 @@ const DeleteVideo = () => {
 
   const fetchVideos = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/video/all");
+      const res = await axios.get(`${BASE_URL}/api/video/all`);
       console.log("Fetched videos:", res.data); // Debug log
       setVideos(res.data);
     } catch (err) {
@@ -24,7 +25,7 @@ const DeleteVideo = () => {
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this video?")) return;
     try {
-      await axios.delete(`http://localhost:5000/api/video/${id}`);
+      await axios.delete(`${BASE_URL}/api/video/${id}`);
       setVideos([]);
       alert("Video deleted successfully!");
       navigate("/admin/video"); // Navigate to AddVideo form after deletion
@@ -62,7 +63,7 @@ const DeleteVideo = () => {
         <div className="mb-4">
           <h3 className="text-lg font-semibold">Thumbnail</h3>
           <img
-            src={`http://localhost:5000/${video.thumbnail}`}
+            src={`${BASE_URL}/${video.thumbnail}`}
             alt="thumbnail"
             className="w-64 h-40 object-cover rounded"
           />

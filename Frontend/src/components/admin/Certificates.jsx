@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from "react";
+﻿import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { BASE_URL } from '../../config';
 
 const Certificates = () => {
     const [certificates, setCertificates] = useState([]);
     const [registrations, setRegistrations] = useState([]);
     const [loading, setLoading] = useState(true);
     const [issuing, setIssuing] = useState(false);
-    const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+    const API_URL = BASE_URL;
 
     const [form, setForm] = useState({
         registration_id: "",

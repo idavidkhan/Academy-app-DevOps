@@ -1,5 +1,6 @@
-import { createContext, useContext, useState, useEffect } from "react";
+﻿import { createContext, useContext, useState, useEffect } from "react";
 import axios from "axios";
+import { BASE_URL } from '../config';
 
 const CourseContext = createContext();
 
@@ -9,7 +10,7 @@ export const CourseProvider = ({ children }) => {
 
   const fetchCourses = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/courses"); // Make sure this matches your backend route
+      const res = await axios.get(`${BASE_URL}/api/courses`); // Make sure this matches your backend route
       setCourses(res.data);
       setLoading(false);
     } catch (err) {

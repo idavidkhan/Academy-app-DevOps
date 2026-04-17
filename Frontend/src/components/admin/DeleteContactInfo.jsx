@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from "react";
+﻿import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { BASE_URL } from '../../config';
 
 const DeleteContactInfo = () => {
   const [contact, setContact] = useState(null);
 
   const fetchContact = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/contact-info");
+      const res = await axios.get(`${BASE_URL}/api/contact-info`);
       setContact(res.data);
     } catch (err) {
       console.error("Failed to fetch contact info", err);
@@ -23,7 +24,7 @@ const DeleteContactInfo = () => {
 
     try {
       await axios.delete(
-        `http://localhost:5000/api/contact-info/${contact.id}`
+        `${BASE_URL}/api/contact-info/${contact.id}`
       );
       alert("Contact info deleted");
       setContact(null); // Reset state to show Add button

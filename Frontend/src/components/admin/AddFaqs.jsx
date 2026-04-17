@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+﻿import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import FroalaEditor from "react-froala-wysiwyg";
@@ -8,6 +8,7 @@ import "froala-editor/js/froala_editor.pkgd.min.js";
 import "froala-editor/css/froala_editor.pkgd.min.css";
 import "froala-editor/css/froala_style.min.css";
 import "froala-editor/css/themes/gray.min.css";
+import { BASE_URL } from '../../config';
 
 function AddFaqs() {
   const [faq, setFaq] = useState({ question: "", answer: "" });
@@ -18,7 +19,7 @@ function AddFaqs() {
     const token = localStorage.getItem("token");
 
     try {
-      await axios.post("http://localhost:5000/api/faqs/add", faq, {
+      await axios.post(`${BASE_URL}/api/faqs/add`, faq, {
         headers: { Authorization: `Bearer ${token}` },
       });
       alert("FAQ added successfully!");

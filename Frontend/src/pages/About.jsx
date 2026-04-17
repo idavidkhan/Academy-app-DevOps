@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+﻿import React, { useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { useAboutContext } from "../context/AboutContext";
 import { useVideoContext } from "../context/VideoContext"; // Import VideoContext
 import ScrollBtn from "../components/ScrollBtn";
 import Footer from "../components/Footer";
+import { BASE_URL } from '../config';
 
 function About() {
   const { people, loading } = useAboutContext();
@@ -217,7 +218,7 @@ function About() {
                     <div className="relative mb-10 pt-4">
                       <div className="absolute -inset-2 bg-teal-500/10 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
                       <img
-                        src={`http://localhost:5000${person.image}`}
+                        src={`${BASE_URL}${person.image}`}
                         alt={person.trainer_name}
                         className="w-40 h-40 mx-auto rounded-full object-cover border-4 border-slate-50 shadow-2xl relative z-10"
                       />
@@ -285,7 +286,7 @@ function About() {
                   <div className="absolute -inset-4 bg-teal-600/5 rounded-[3.5rem] blur-2xl group-hover:bg-teal-600/10 transition-colors"></div>
                   <div className="relative overflow-hidden rounded-[3rem] shadow-2xl">
                     <img
-                      src={`http://localhost:5000/${videoData.thumbnail}`}
+                      src={`${BASE_URL}/${videoData.thumbnail}`}
                       alt="Video Tour Thumbnail"
                       className="w-full aspect-video object-cover transition-transform duration-700 group-hover:scale-110"
                     />

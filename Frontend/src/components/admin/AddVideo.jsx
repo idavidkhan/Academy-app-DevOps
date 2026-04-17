@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+﻿import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { BASE_URL } from '../../config';
 
 const AddVideo = () => {
   const navigate = useNavigate();
@@ -29,7 +30,7 @@ const AddVideo = () => {
     formData.append("title", title);
 
     try {
-      await axios.post("http://localhost:5000/api/video", formData, {
+      await axios.post(`${BASE_URL}/api/video`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       alert("Video added successfully!");

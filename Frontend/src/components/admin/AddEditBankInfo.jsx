@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+﻿import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { BASE_URL } from '../../config';
 
 const AddEditBankInfo = () => {
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ const AddEditBankInfo = () => {
     branch_code: "",
     branch_address: "",
   });
-  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+  const API_URL = BASE_URL;
 
   useEffect(() => {
     if (BankID) {

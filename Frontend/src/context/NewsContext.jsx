@@ -1,5 +1,6 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+﻿import React, { createContext, useContext, useState, useEffect } from "react";
 import axios from "axios";
+import { BASE_URL } from '../config';
 
 const NewsContext = createContext();
 
@@ -11,7 +12,7 @@ export const NewsProvider = ({ children }) => {
 
   const fetchNews = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/news");
+      const res = await axios.get(`${BASE_URL}/api/news`);
       setAllNews(res.data);
       setLoading(false);
     } catch (err) {
@@ -30,7 +31,7 @@ export const NewsProvider = ({ children }) => {
 
   const subscribe = async (email) => {
     try {
-      await axios.post("http://localhost:5000/api/subscribers", { email });
+      await axios.post(`${BASE_URL}/api/subscribers`, { email });
     } catch (err) {
       throw err;
     }

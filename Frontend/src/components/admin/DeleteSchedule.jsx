@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from "react";
+﻿import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import { BASE_URL } from '../../config';
 
 function DeleteSchedule() {
   const [schedules, setSchedules] = useState([]);
   const navigate = useNavigate();
 
   const fetchSchedules = () => {
-    axios.get("http://localhost:5000/api/schedules").then((res) => {
+    axios.get(`${BASE_URL}/api/schedules`).then((res) => {
       setSchedules(res.data);
     });
   };
@@ -21,7 +22,7 @@ function DeleteSchedule() {
       return;
 
     try {
-      await axios.delete(`http://localhost:5000/api/schedules/${id}`);
+      await axios.delete(`${BASE_URL}/api/schedules/${id}`);
       alert("Schedule deleted!");
       fetchSchedules();
     } catch (err) {

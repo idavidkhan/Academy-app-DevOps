@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+﻿import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { BASE_URL } from '../config';
 
 const VerifyRegistration = () => {
   const location = useLocation();
@@ -10,7 +11,7 @@ const VerifyRegistration = () => {
   const [cnic, setCnic] = useState("");
   const [applicationId, setApplicationId] = useState("");
   const [verifiedRegistration, setVerifiedRegistration] = useState(null);
-  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+  const API_URL = BASE_URL;
 
   const handleVerify = async (e) => {
     e.preventDefault();

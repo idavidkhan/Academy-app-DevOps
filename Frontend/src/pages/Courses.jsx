@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+﻿import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -7,6 +7,7 @@ import { useCourseContext } from "../context/CourseContext";
 import Footer from "../components/Footer";
 import ScrollBtn from "../components/ScrollBtn";
 import { Calendar, Clock, MapPin, DollarSign, ChevronRight, User } from "lucide-react";
+import { BASE_URL } from '../config';
 
 function Courses() {
   const { schedules } = useScheduleContext();
@@ -95,7 +96,7 @@ function Courses() {
                 >
                   <div className="relative h-56 overflow-hidden">
                     <img
-                      src={`http://localhost:5000/${course.image || "uploads/courses/default.jpg"}`}
+                      src={`${BASE_URL}/${course.image || "uploads/courses/default.jpg"}`}
                       alt={course.title}
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     />
@@ -112,7 +113,7 @@ function Courses() {
 
                     <div className="flex items-center gap-3 mb-6 p-3 bg-slate-50 rounded-2xl border border-slate-100">
                       <img
-                        src={`http://localhost:5000/uploads/${course.trainer_image || "teachers/default.jpg"}`}
+                        src={`${BASE_URL}/uploads/${course.trainer_image || "teachers/default.jpg"}`}
                         alt={course.trainer_name}
                         className="w-10 h-10 rounded-full border-2 border-white shadow-sm"
                       />

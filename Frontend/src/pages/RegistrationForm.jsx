@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+﻿import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -7,6 +7,7 @@ import { useScheduleContext } from "../context/ScheduleContext";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ChevronDown } from "lucide-react";
+import { BASE_URL } from '../config';
 
 const RegistrationForm = () => {
   const location = useLocation();
@@ -14,7 +15,7 @@ const RegistrationForm = () => {
   const { schedules } = useScheduleContext();
   const [courseList, setCourseList] = useState([]);
 
-  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+  const API_URL = BASE_URL;
 
   const selectedCourse = location.state?.course;
 

@@ -1,15 +1,16 @@
-import React, { useState } from "react";
+﻿import React, { useState } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Award, Download, Search } from "lucide-react";
+import { BASE_URL } from '../config';
 
 const CertificateDownloader = () => {
     const [email, setEmail] = useState("");
     const [cnic, setCnic] = useState("");
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
-    const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+    const API_URL = BASE_URL;
 
     const fetchCertificates = async () => {
         if (!email && !cnic) {

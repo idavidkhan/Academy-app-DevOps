@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+﻿import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -6,6 +6,7 @@ import { useTeacherContext } from "../context/TeacherContext";
 import Footer from "../components/Footer";
 import ScrollBtn from "../components/ScrollBtn";
 import { Linkedin, Twitter, Github, Facebook, User, ArrowRight } from "lucide-react";
+import { BASE_URL } from '../config';
 
 function Teachers() {
   const location = useLocation();
@@ -51,7 +52,7 @@ function Teachers() {
               >
                 <div className="relative h-72 rounded-[2.5rem] overflow-hidden mb-6">
                   <img
-                    src={`http://localhost:5000/uploads/${teacher.image || "default.jpg"}`}
+                    src={`${BASE_URL}/uploads/${teacher.image || "default.jpg"}`}
                     alt={teacher.name}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />

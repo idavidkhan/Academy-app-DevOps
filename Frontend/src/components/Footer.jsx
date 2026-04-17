@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+﻿import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { BASE_URL } from '../config';
 
 const Footer = () => {
   const [subscriberEmail, setSubscriberEmail] = useState("");
@@ -16,7 +17,7 @@ const Footer = () => {
 
   const fetchContactInfo = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/contact-info");
+      const res = await axios.get(`${BASE_URL}/api/contact-info`);
       setContactInfo(res.data);
     } catch (err) {
       console.error("Failed to load contact info", err);
@@ -37,7 +38,7 @@ const Footer = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/subscribers",
+        `${BASE_URL}/api/subscribers`,
         { email: trimmedEmail },
         { headers: { "Content-Type": "application/json" } }
       );

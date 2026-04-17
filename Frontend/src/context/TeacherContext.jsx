@@ -1,6 +1,7 @@
-// context/TeacherContext.js
+﻿// context/TeacherContext.js
 import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
+import { BASE_URL } from '../config';
 
 const TeacherContext = createContext();
 
@@ -10,7 +11,7 @@ export const TeacherProvider = ({ children }) => {
   useEffect(() => {
     const fetchTeachers = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/teachers");
+        const res = await axios.get(`${BASE_URL}/api/teachers`);
         setTeachers(res.data);
       } catch (err) {
         console.error("Failed to fetch teachers:", err);

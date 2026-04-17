@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+﻿import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { BASE_URL } from '../../config';
 
 function DeleteTeacher() {
   const [teachers, setTeachers] = useState([]);
@@ -15,7 +16,7 @@ function DeleteTeacher() {
 
   const fetchTeachers = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/teachers");
+      const res = await axios.get(`${BASE_URL}/api/teachers`);
       setTeachers(res.data);
     } catch (err) {
       console.error("Failed to fetch teachers", err);
@@ -30,7 +31,7 @@ function DeleteTeacher() {
 
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(`http://localhost:5000/api/teachers/${id}`, {
+      await axios.delete(`${BASE_URL}/api/teachers/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

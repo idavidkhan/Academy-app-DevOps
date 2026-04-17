@@ -1,7 +1,8 @@
-// src/components/admin/EditSchedule.jsx
+﻿// src/components/admin/EditSchedule.jsx
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
+import { BASE_URL } from '../../config';
 
 function EditSchedule() {
   const { id } = useParams();
@@ -16,11 +17,11 @@ function EditSchedule() {
   });
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/courses").then((res) => {
+    axios.get(`${BASE_URL}/api/courses`).then((res) => {
       setCourses(res.data);
     });
 
-    axios.get(`http://localhost:5000/api/schedules/${id}`).then((res) => {
+    axios.get(`${BASE_URL}/api/schedules/${id}`).then((res) => {
       const schedule = res.data;
       setForm({
         course_id: schedule.course_id,
@@ -47,7 +48,7 @@ function EditSchedule() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:5000/api/schedules/${id}`, form);
+      await axios.put(`${BASE_URL}/api/schedules/${id}`, form);
       alert("Schedule updated successfully!");
       navigate("/admin/schedule-course");
     } catch (err) {

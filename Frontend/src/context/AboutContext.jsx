@@ -1,6 +1,7 @@
-// src/context/AboutContext.jsx
+﻿// src/context/AboutContext.jsx
 import React, { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
+import { BASE_URL } from '../config';
 
 const AboutContext = createContext();
 
@@ -11,7 +12,7 @@ export function AboutProvider({ children }) {
   // Fetch from backend
   const fetchAboutData = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/about");
+      const res = await axios.get(`${BASE_URL}/api/about`);
       setPeople(res.data);
     } catch (err) {
       console.error("Failed to fetch about data:", err);

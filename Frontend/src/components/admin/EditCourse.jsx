@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+﻿import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import FroalaEditor from "react-froala-wysiwyg";
 import "froala-editor/js/plugins.pkgd.min.js";
 import "froala-editor/css/froala_editor.pkgd.min.css";
 import "froala-editor/css/froala_style.min.css";
+import { BASE_URL } from '../../config';
 
 function EditCourse() {
   const { id } = useParams();
@@ -28,7 +29,7 @@ function EditCourse() {
   useEffect(() => {
   const fetchTeachers = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/teachers");
+      const res = await axios.get(`${BASE_URL}/api/teachers`);
       setTeachers(res.data);
     } catch (error) {
       console.error("Failed to load teachers:", error);
@@ -41,7 +42,7 @@ function EditCourse() {
   useEffect(() => {
     const fetchCourse = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/courses/${id}`);
+        const res = await axios.get(`${BASE_URL}/api/courses/${id}`);
         const course = res.data;
 
         setForm({
@@ -54,7 +55,7 @@ function EditCourse() {
           existingImage: course.image || "",
         });
 
-        setPreviewImage(`http://localhost:5000/${course.image}`);
+        setPreviewImage(`${BASE_URL}/${course.image}`);
       } catch (err) {
         alert(
           "Failed to load course: " +
@@ -65,7 +66,7 @@ function EditCourse() {
 
     const fetchTeachers = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/teachers");
+        const res = await axios.get(`${BASE_URL}/api/teachers`);
         setTeachers(res.data);
       } catch (error) {
         console.error("Failed to load teachers:", error);
@@ -105,7 +106,7 @@ function EditCourse() {
       formData.append("existingImage", form.existingImage || "");
       if (image) formData.append("image", image);
 
-      await axios.put(`http://localhost:5000/api/courses/${id}`, formData, {
+      await axios.put(`${BASE_URL}/api/courses/${id}`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "multipart/form-data",

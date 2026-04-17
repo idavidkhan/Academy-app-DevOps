@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+﻿import React, { useState, useEffect } from "react";
 import axios from "axios";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -9,6 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Footer from "../components/Footer";
 import ScrollBtn from "../components/ScrollBtn";
 import { Phone, Mail, MapPin, Clock, Send } from "lucide-react";
+import { BASE_URL } from '../config';
 
 function Contact() {
   const [contact, setContact] = useState(null);
@@ -19,7 +20,7 @@ function Contact() {
     window.scrollTo(0, 0);
 
     axios
-      .get("http://localhost:5000/api/contact-info")
+      .get(`${BASE_URL}/api/contact-info`)
       .then((res) => {
         setContact(res.data);
         setLoading(false);
@@ -50,7 +51,7 @@ function Contact() {
 
   const handleSubmit = (values, { resetForm }) => {
     axios
-      .post("http://localhost:5000/api/contact-form", values)
+      .post(`${BASE_URL}/api/contact-form`, values)
       .then(() => {
         toast.success("Message sent successfully!");
         resetForm();

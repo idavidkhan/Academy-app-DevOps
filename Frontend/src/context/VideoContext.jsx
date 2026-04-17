@@ -1,5 +1,6 @@
-import { createContext, useContext, useEffect, useState } from "react";
+﻿import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
+import { BASE_URL } from '../config';
 
 const VideoContext = createContext();
 
@@ -12,7 +13,7 @@ export const VideoProvider = ({ children }) => {
     try {
       setLoading(true);
       setError(null);
-      const res = await axios.get("http://localhost:5000/api/video");
+      const res = await axios.get(`${BASE_URL}/api/video`);
       console.log("Fetched video data:", res.data); // Debug log
       setVideoData(res.data);
     } catch (error) {

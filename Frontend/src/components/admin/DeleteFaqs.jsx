@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+﻿import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { BASE_URL } from '../../config';
 
 function DeleteFaqs() {
   const [faqs, setFaqs] = useState([]);
@@ -11,7 +12,7 @@ function DeleteFaqs() {
 
   const fetchFaqs = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/faqs");
+      const res = await axios.get(`${BASE_URL}/api/faqs`);
       setFaqs(res.data);
     } catch (err) {
       console.error("Error fetching FAQs", err);
@@ -26,7 +27,7 @@ function DeleteFaqs() {
 
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(`http://localhost:5000/api/faqs/${id}`, {
+      await axios.delete(`${BASE_URL}/api/faqs/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setFaqs(faqs.filter((faq) => faq.id !== id));

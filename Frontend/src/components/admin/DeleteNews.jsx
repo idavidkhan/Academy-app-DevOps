@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+﻿import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { BASE_URL } from '../../config';
 
 function DeleteNews() {
   const [news, setNews] = useState([]);
@@ -8,7 +9,7 @@ function DeleteNews() {
 
   const fetchNews = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/news");
+      const response = await axios.get(`${BASE_URL}/api/news`);
       console.log("Fetched news in NewsList:", response.data); // Debug
       setNews(response.data);
       setError(null);
@@ -27,7 +28,7 @@ function DeleteNews() {
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this news?")) return;
     try {
-      await axios.delete(`http://localhost:5000/api/news/${id}`);
+      await axios.delete(`${BASE_URL}/api/news/${id}`);
       fetchNews();
       alert("News deleted successfully!");
     } catch (err) {
@@ -72,7 +73,7 @@ function DeleteNews() {
                   {item.image ? (
                     <>
                       <img
-                        src={`http://localhost:5000/uploads/news/${item.image}`}
+                        src={`${BASE_URL}/uploads/news/${item.image}`}
                         alt={item.title}
                         className="w-20 h-14 object-cover rounded"
                         onError={(e) => {

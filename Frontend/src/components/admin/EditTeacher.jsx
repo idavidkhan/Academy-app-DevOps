@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+﻿import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import FroalaEditor from "react-froala-wysiwyg";
@@ -8,6 +8,7 @@ import "froala-editor/js/froala_editor.pkgd.min.js";
 import "froala-editor/css/froala_editor.pkgd.min.css";
 import "froala-editor/css/froala_style.min.css";
 import "froala-editor/css/themes/gray.min.css";
+import { BASE_URL } from '../../config';
 
 function EditTeacher() {
   const { id } = useParams();
@@ -32,7 +33,7 @@ function EditTeacher() {
   useEffect(() => {
     const fetchTeacher = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/teachers/${id}`);
+        const res = await axios.get(`${BASE_URL}/api/teachers/${id}`);
         const teacher = res.data;
         setFormData({
           name: teacher.name || "",
@@ -48,7 +49,7 @@ function EditTeacher() {
           existingImage: teacher.image || "",
         });
         if (teacher.image) {
-          setPreviewImage(`http://localhost:5000/uploads/${teacher.image}`);
+          setPreviewImage(`${BASE_URL}/uploads/${teacher.image}`);
         }
       } catch (err) {
         console.error(
@@ -98,7 +99,7 @@ function EditTeacher() {
 
     try {
       const token = localStorage.getItem("token");
-      await axios.put(`http://localhost:5000/api/teachers/${id}`, data, {
+      await axios.put(`${BASE_URL}/api/teachers/${id}`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "multipart/form-data",

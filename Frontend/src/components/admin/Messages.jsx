@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+﻿import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { BASE_URL } from '../../config';
 
 const Messages = () => {
   const [messages, setMessages] = useState([]);
@@ -12,7 +13,7 @@ const Messages = () => {
 
   const fetchMessages = () => {
     axios
-      .get("http://localhost:5000/api/contact-form")
+      .get(`${BASE_URL}/api/contact-form`)
       .then((res) => setMessages(res.data))
       .catch((err) => console.error("Failed to fetch messages:", err));
   };
@@ -20,7 +21,7 @@ const Messages = () => {
   const handleDelete = (id) => {
     if (window.confirm("Are you sure you want to delete this message?")) {
       axios
-        .delete(`http://localhost:5000/api/contact-form/${id}`)
+        .delete(`${BASE_URL}/api/contact-form/${id}`)
         .then(() => {
           setMessages((prev) => prev.filter((msg) => msg.id !== id));
         })

@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+﻿import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
+import { BASE_URL } from '../../config';
 
 const EditVideo = () => {
   const { id } = useParams();
@@ -16,10 +17,10 @@ const EditVideo = () => {
       try {
         setLoading(true);
         console.log(`Fetching video with ID: ${id}`); // Debug log
-        const res = await axios.get(`http://localhost:5000/api/video/${id}`);
+        const res = await axios.get(`${BASE_URL}/api/video/${id}`);
         setVideoUrl(res.data.videoUrl);
         setTitle(res.data.title || "");
-        setPreview(`http://localhost:5000/${res.data.thumbnail}`);
+        setPreview(`${BASE_URL}/${res.data.thumbnail}`);
       } catch (err) {
         console.error("Error fetching video:", errs);
         alert("Failed to fetch video: " + (err.response?.data?.message || err.message));
@@ -47,7 +48,7 @@ const EditVideo = () => {
     if (thumbnail) formData.append("thumbnail", thumbnail);
 
     try {
-      await axios.put(`http://localhost:5000/api/video/${id}`, formData, {
+      await axios.put(`${BASE_URL}/api/video/${id}`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       alert("Video updated successfully!");

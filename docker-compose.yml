@@ -1,0 +1,52 @@
+services:
+
+  mysql:
+    container_name: mysql
+    image: mysql:latest
+    volumes:
+      - data:/var/lib/mysql
+      - ./backend/init.sql:/docker-entrypoint-initdb.d/init.sql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: academy-db
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: secret
+    ports:
+      - "5000:5000"
+    restart: always
+    networks:
+      - Academy-app
+
+
+  backend:
+    container_name: backend
+    build: ./backend
+    env_file:
+      - ./backend/.env.docker
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mysql
+    networks:
+      - Academy-app
+    restart: always
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:5000/"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  frontend:
+    container_name: frontend
+    build: ./Frontend
+    ports:
+      - "5173:5173"
+    networks:
+      - Academy-app
+
+volumes:
+  data: {}
+networks:
+  Academy-app:
+   

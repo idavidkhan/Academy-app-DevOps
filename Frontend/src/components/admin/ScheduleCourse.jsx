@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+﻿import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { BASE_URL } from '../../config';
 
 function ScheduleCourse() {
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ function ScheduleCourse() {
   // Fetch courses from backend
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/courses")
+      .get(`${BASE_URL}/api/courses`)
       .then((res) => {
         console.log("Courses API response:", res.data);
 
@@ -41,7 +42,7 @@ function ScheduleCourse() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5000/api/schedules", form);
+      await axios.post(`${BASE_URL}/api/schedules`, form);
 
       alert("Schedule created successfully!");
       navigate("/admin/schedule-course");

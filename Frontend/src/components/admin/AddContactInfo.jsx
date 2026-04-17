@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+﻿import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { BASE_URL } from '../../config';
 
 const AddContactInfo = () => {
   const navigate = useNavigate();
@@ -30,7 +31,7 @@ const AddContactInfo = () => {
     e.preventDefault();
     console.log("Form data before submission:", form); // Debug log
     try {
-      await axios.post("http://localhost:5000/api/contact-info", form);
+      await axios.post(`${BASE_URL}/api/contact-info`, form);
       alert("Contact info added successfully!");
       navigate("/admin/contact");
     } catch (error) {

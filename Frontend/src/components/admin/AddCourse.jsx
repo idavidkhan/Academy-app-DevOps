@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+﻿import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import FroalaEditor from "react-froala-wysiwyg";
 import "froala-editor/js/plugins.pkgd.min.js";
 import "froala-editor/css/froala_editor.pkgd.min.css";
 import "froala-editor/css/froala_style.min.css";
+import { BASE_URL } from '../../config';
 
 function AddCourse() {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ function AddCourse() {
   useEffect(() => {
     const fetchTeachers = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/teachers");
+        const res = await axios.get(`${BASE_URL}/api/teachers`);
         setTeachers(res.data);
       } catch (error) {
         console.error("Failed to load teachers:", error);
@@ -57,7 +58,7 @@ function AddCourse() {
 
     try {
       const token = localStorage.getItem("token");
-      await axios.post("http://localhost:5000/api/courses/", formData, {
+      await axios.post(`${BASE_URL}/api/courses/`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,

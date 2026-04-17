@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+﻿import React, { useState, useEffect } from "react";
 import axios from "axios";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import Footer from "../components/Footer";
 import ScrollBtn from "../components/ScrollBtn";
 import { Search, HelpCircle, Phone, Mail, ArrowRight } from "lucide-react";
+import { BASE_URL } from '../config';
 
 export default function Faqs() {
   const [faqsData, setFaqsData] = useState([]);
@@ -21,7 +22,7 @@ export default function Faqs() {
 
   const fetchFaqs = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/faqs");
+      const res = await axios.get(`${BASE_URL}/api/faqs`);
       setFaqsData(res.data);
     } catch (err) {
       console.error("Failed to load FAQs", err);
@@ -30,7 +31,7 @@ export default function Faqs() {
 
   const fetchContactInfo = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/contact-info");
+      const res = await axios.get(`${BASE_URL}/api/contact-info`);
       setContactInfo(res.data);
     } catch (err) {
       console.error("Failed to load contact info", err);

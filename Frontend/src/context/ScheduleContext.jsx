@@ -1,5 +1,6 @@
-import { createContext, useContext, useEffect, useState } from "react";
+﻿import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
+import { BASE_URL } from '../config';
 
 const ScheduleContext = createContext();
 
@@ -10,7 +11,7 @@ export const ScheduleProvider = ({ children }) => {
 
   const fetchSchedules = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/schedules");
+      const res = await axios.get(`${BASE_URL}/api/schedules`);
       setSchedules(res.data);
     } catch (err) {
       console.error("Error fetching schedules:", err.message);

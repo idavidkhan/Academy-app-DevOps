@@ -1,7 +1,8 @@
-// src/admin/AdminCourseList.jsx
+﻿// src/admin/AdminCourseList.jsx
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { BASE_URL } from '../../config';
 
 function DeleteCourse() {
   const [courses, setCourses] = useState([]);
@@ -9,7 +10,7 @@ function DeleteCourse() {
 
   const fetchCourses = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/courses");
+      const res = await axios.get(`${BASE_URL}/api/courses`);
       setCourses(res.data);
     } catch (err) {
       console.error("Failed to fetch courses", err);
@@ -24,7 +25,7 @@ function DeleteCourse() {
 
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(`http://localhost:5000/api/courses/${id}`, {
+      await axios.delete(`${BASE_URL}/api/courses/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

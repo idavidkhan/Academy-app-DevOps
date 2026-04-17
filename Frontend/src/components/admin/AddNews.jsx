@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+﻿import React, { useState } from "react";
 import FroalaEditor from "react-froala-wysiwyg";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { BASE_URL } from '../../config';
 
 function AddNews() {
   const [formData, setFormData] = useState({
@@ -40,7 +41,7 @@ function AddNews() {
     });
 
     try {
-      const response = await axios.post("http://localhost:5000/api/news", data);
+      const response = await axios.post(`${BASE_URL}/api/news`, data);
       alert("News added successfully!");
       navigate("/admin/news");
     } catch (error) {

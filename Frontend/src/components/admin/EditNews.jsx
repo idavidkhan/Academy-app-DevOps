@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+﻿import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import FroalaEditor from "react-froala-wysiwyg";
+import { BASE_URL } from '../../config';
 
 function EditNews() {
   const { id } = useParams();
@@ -23,7 +24,7 @@ function EditNews() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/news/${id}`)
+      .get(`${BASE_URL}/api/news/${id}`)
       .then((res) => {
         const data = {
           ...res.data,
@@ -33,7 +34,7 @@ function EditNews() {
         setFormData(data);
         if (res.data.image) {
           setPreviewImage(
-            `http://localhost:5000/uploads/news/${res.data.image}`
+            `${BASE_URL}/uploads/news/${res.data.image}`
           );
         }
       })
@@ -75,7 +76,7 @@ function EditNews() {
     }
 
     try {
-      await axios.put(`http://localhost:5000/api/news/${id}`, updated);
+      await axios.put(`${BASE_URL}/api/news/${id}`, updated);
       alert("News updated successfully!");
       navigate("/admin/news");
     } catch (err) {

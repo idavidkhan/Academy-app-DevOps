@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from "react";
+﻿import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { FaEdit, FaTrash, FaPlus } from "react-icons/fa";
+import { BASE_URL } from '../../config';
 
 const DeleteAbout = () => {
   const [aboutData, setAboutData] = useState([]);
 
   const fetchAboutData = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/about");
+      const res = await axios.get(`${BASE_URL}/api/about`);
       setAboutData(res.data);
     } catch (err) {
       console.error("Error fetching about data:", err);
@@ -18,7 +19,7 @@ const DeleteAbout = () => {
   const handleDelete = async (id) => {
     if (window.confirm("Delete this entry?")) {
       try {
-        await axios.delete(`http://localhost:5000/api/about/${id}`);
+        await axios.delete(`${BASE_URL}/api/about/${id}`);
         fetchAboutData();
       } catch (err) {
         console.error("Error deleting entry:", err);
@@ -86,7 +87,7 @@ const DeleteAbout = () => {
                   <td className="py-2 px-4">
                     {item.image && (
                       <img
-                        src={`http://localhost:5000${item.image}`}
+                        src={`${BASE_URL}${item.image}`}
                         alt="img"
                         className="h-12 object-cover rounded"
                       />

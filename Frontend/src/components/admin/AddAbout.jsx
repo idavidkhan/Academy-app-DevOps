@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+﻿import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
 import FroalaEditor from "react-froala-wysiwyg";
 import "froala-editor/js/plugins.pkgd.min.js";
 import "froala-editor/css/froala_editor.pkgd.min.css";
 import "froala-editor/css/froala_style.min.css";
+import { BASE_URL } from '../../config';
 
 const AddAbout = () => {
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ const AddAbout = () => {
   useEffect(() => {
     const fetchSections = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/about");
+        const res = await axios.get(`${BASE_URL}/api/about`);
         const sections = res.data.map((entry) => entry.section);
         setExistingSections(sections);
       } catch (err) {
@@ -54,7 +55,7 @@ const AddAbout = () => {
       data.append("card_heading", heading);
       data.append("card_paragraph", paragraph);
       try {
-        await axios.post("http://localhost:5000/api/about", data);
+        await axios.post(`${BASE_URL}/api/about`, data);
       } catch (err) {
         console.error(`Failed to save ${section}`, err);
       }
@@ -81,7 +82,7 @@ const AddAbout = () => {
       founderData.append("bio", formData.bio);
       if (formData.image) founderData.append("image", formData.image);
       try {
-        await axios.post("http://localhost:5000/api/about", founderData);
+        await axios.post(`${BASE_URL}/api/about`, founderData);
       } catch (err) {
         console.error("Failed to save founder", err);
       }

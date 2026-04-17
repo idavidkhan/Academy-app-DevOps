@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+﻿import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -10,6 +10,7 @@ import Footer from "../components/Footer";
 import ScrollBtn from "../components/ScrollBtn";
 import DOMPurify from "dompurify";
 import { Calendar, Clock, MapPin, DollarSign, User, ChevronRight, BookOpen, CheckCircle, ArrowRight } from "lucide-react";
+import { BASE_URL } from '../config';
 
 function CourseDetail() {
   const { state } = useLocation();
@@ -109,7 +110,7 @@ function CourseDetail() {
           <div className="w-full lg:w-2/3 space-y-12">
             <div className="relative rounded-[3rem] overflow-hidden shadow-premium group" data-aos="fade-up">
               <img
-                src={`http://localhost:5000/${course.image || "Uploads/courses/default.jpg"}`}
+                src={`${BASE_URL}/${course.image || "Uploads/courses/default.jpg"}`}
                 alt={course.title}
                 className="w-full h-[500px] object-cover transition-transform duration-700 group-hover:scale-110"
               />
@@ -152,7 +153,7 @@ function CourseDetail() {
               <div className="flex items-center gap-8 cursor-pointer" onClick={handleTeacherClick}>
                 <div className="relative">
                   <img
-                    src={`http://localhost:5000/uploads/${course.trainer_image || "teachers/default.jpg"}`}
+                    src={`${BASE_URL}/uploads/${course.trainer_image || "teachers/default.jpg"}`}
                     alt={course.trainer_name}
                     className="w-28 h-28 rounded-full object-cover border-4 border-white shadow-lg group-hover:scale-105 transition-transform"
                   />

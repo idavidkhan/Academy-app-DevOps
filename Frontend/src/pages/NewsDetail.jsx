@@ -1,4 +1,4 @@
-import { Calendar, User, Tag, Share2, Search, ArrowRight, MessageSquare, Clock, ArrowLeft, Facebook, Twitter, Linkedin, Link as LinkIcon, Mail } from "lucide-react";
+﻿import { Calendar, User, Tag, Share2, Search, ArrowRight, MessageSquare, Clock, ArrowLeft, Facebook, Twitter, Linkedin, Link as LinkIcon, Mail } from "lucide-react";
 import { useNewsContext } from "../context/NewsContext";
 import { useParams, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
@@ -9,6 +9,7 @@ import ScrollBtn from "../components/ScrollBtn";
 import Footer from "../components/Footer";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { BASE_URL } from '../config';
 
 function NewsDetail() {
   const { id } = useParams();
@@ -148,7 +149,7 @@ function NewsDetail() {
           <div className="w-full lg:w-2/3 space-y-12">
             <div className="relative rounded-[3rem] overflow-hidden shadow-premium group">
               <img
-                src={`http://localhost:5000/uploads/news/${news.image || "default.jpg"}`}
+                src={`${BASE_URL}/uploads/news/${news.image || "default.jpg"}`}
                 alt={news.title}
                 className="w-full h-[600px] object-cover transition-transform duration-700 group-hover:scale-110"
               />
@@ -236,7 +237,7 @@ function NewsDetail() {
                 {popularNews && popularNews.slice(0, 4).map((item) => (
                   <div key={item.id} className="group cursor-pointer flex gap-4" onClick={() => navigate(`/news/${item.id}`)}>
                     <div className="w-20 h-20 rounded-2xl overflow-hidden flex-shrink-0 shadow-sm">
-                      <img src={`http://localhost:5000/uploads/news/${item.image || "default.jpg"}`} alt={item.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                      <img src={`${BASE_URL}/uploads/news/${item.image || "default.jpg"}`} alt={item.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                     </div>
                     <div>
                       <h4 className="font-black text-slate-800 line-clamp-2 leading-tight group-hover:text-teal-600 transition-colors" dangerouslySetInnerHTML={{ __html: item.title }}></h4>

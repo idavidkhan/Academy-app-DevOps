@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+﻿import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import FroalaEditor from "react-froala-wysiwyg";
 import "froala-editor/js/plugins.pkgd.min.js";
 import "froala-editor/css/froala_editor.pkgd.min.css";
 import "froala-editor/css/froala_style.min.css";
+import { BASE_URL } from '../../config';
 
 const EditAbout = () => {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ const EditAbout = () => {
   useEffect(() => {
     const fetchEntry = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/about/${id}`);
+        const res = await axios.get(`${BASE_URL}/api/about/${id}`);
         const data = res.data;
         setEntry(data);
         setFormData({
@@ -63,12 +64,12 @@ const EditAbout = () => {
         if (formData.image) {
           data.append("image", formData.image);
         }
-        await axios.put(`http://localhost:5000/api/about/founder/${id}`, data);
+        await axios.put(`${BASE_URL}/api/about/founder/${id}`, data);
       } else {
         data.append("section", entry.section);
         data.append("card_heading", formData.card_heading);
         data.append("card_paragraph", formData.card_paragraph);
-        await axios.put(`http://localhost:5000/api/about/${id}`, data);
+        await axios.put(`${BASE_URL}/api/about/${id}`, data);
       }
       alert("Entry updated successfully!");
       navigate("/admin/about");

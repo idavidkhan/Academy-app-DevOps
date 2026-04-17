@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+﻿import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { BASE_URL } from '../config';
 
 const CheckStatus = () => {
   const location = useLocation();
@@ -11,7 +12,7 @@ const CheckStatus = () => {
   const [cnic, setCnic] = useState("");
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+  const API_URL = BASE_URL;
 
   const validateCnic = (cnic) => {
     const cnicRegex = /^\d{5}-\d{7}-\d{1}$/;

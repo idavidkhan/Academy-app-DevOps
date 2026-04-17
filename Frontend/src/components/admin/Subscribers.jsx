@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { Trash2, RefreshCw } from "lucide-react";
 import { toast } from "react-toastify";
+import { BASE_URL } from '../../config';
 
 function Subscribers() {
   const [subscribers, setSubscribers] = useState([]);
@@ -14,8 +15,8 @@ function Subscribers() {
     setLoading(true);
     setError(null);
     try {
-      console.log("Fetching subscribers from http://localhost:5000/api/subscribers");
-      const res = await axios.get("http://localhost:5000/api/subscribers", {
+      console.log(`Fetching subscribers from ${BASE_URL}/api/subscribers`);
+      const res = await axios.get(`${BASE_URL}/api/subscribers`, {
         headers: { "Cache-Control": "no-cache" },
       });
       console.log("Subscribers response:", res.data);
@@ -43,7 +44,7 @@ function Subscribers() {
   const deleteSubscriber = async (id) => {
     if (!window.confirm("Are you sure you want to delete this subscriber?")) return;
     try {
-      await axios.delete(`http://localhost:5000/api/subscribers/${id}`);
+      await axios.delete(`${BASE_URL}/api/subscribers/${id}`);
       setSubscribers((prev) => prev.filter((s) => s.id !== id));
       toast.success("Subscriber deleted successfully");
     } catch (err) {

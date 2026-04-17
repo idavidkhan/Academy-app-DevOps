@@ -1,14 +1,15 @@
-import React, { useEffect, useState, useCallback } from "react";
+﻿import React, { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { BASE_URL } from '../../config';
 
 const BankInfoManagement = () => {
   const [bankDetails, setBankDetails] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+  const API_URL = BASE_URL;
 
   const fetchBankDetails = useCallback(async () => {
     try {

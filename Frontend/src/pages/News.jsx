@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+﻿import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useNewsContext } from "../context/NewsContext";
 import AOS from "aos";
@@ -7,6 +7,7 @@ import ScrollBtn from "../components/ScrollBtn";
 import Footer from "../components/Footer";
 import DOMPurify from "dompurify";
 import { Search, X, ArrowRight, Calendar, Clock, User } from "lucide-react";
+import { BASE_URL } from '../config';
 
 function News() {
   const { allNews, loading, error } = useNewsContext();
@@ -193,7 +194,7 @@ function News() {
                   >
                     <div className="relative h-64 overflow-hidden">
                       <img
-                        src={`http://localhost:5000/uploads/news/${item.image || "default.jpg"}`}
+                        src={`${BASE_URL}/uploads/news/${item.image || "default.jpg"}`}
                         alt={item.title}
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                       />

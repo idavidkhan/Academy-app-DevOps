@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+﻿import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { BASE_URL } from '../../config';
 
 const EditContactInfo = () => {
   const navigate = useNavigate();
@@ -26,7 +27,7 @@ const EditContactInfo = () => {
 
   const fetchInfo = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/contact-info");
+      const res = await axios.get(`${BASE_URL}/api/contact-info`);
       if (res.data) {
         setInfo({
           phone: res.data.phone || "",
@@ -62,10 +63,10 @@ const EditContactInfo = () => {
     e.preventDefault();
     try {
       if (id) {
-        await axios.put(`http://localhost:5000/api/contact-info/${id}`, info);
+        await axios.put(`${BASE_URL}/api/contact-info/${id}`, info);
         alert("Contact Info Updated");
       } else {
-        await axios.post("http://localhost:5000/api/contact-info", info);
+        await axios.post(`${BASE_URL}/api/contact-info`, info);
         alert("Contact Info Added");
       }
       navigate("/admin/contact");
