@@ -12,7 +12,7 @@ services:
       MYSQL_USER: admin
       MYSQL_PASSWORD: secret
     ports:
-      - "5000:5000"
+      - "3306:3306"
     restart: always
     networks:
       - Academy-app
@@ -41,7 +41,9 @@ services:
     container_name: frontend
     build: ./Frontend
     ports:
-      - "5173:5173"
+      - "80:80"
+    depends_on:
+      - backend
     networks:
       - Academy-app
 
