@@ -1,0 +1,11 @@
+# Dependencies
+backend/node_modules/
+
+# Secrets - NEVER commit these
+Kubernetes/secret.yaml
+backend/.env.docker
+.env
+
+# Uploads
+backend/uploads/*
+!backend/uploads/.gitkeep
