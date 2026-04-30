@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: idavidkhan/frontend_academy_app:v1
+          image: idavidkhan/frontend_academy_app:v1.3
           ports:
             - containerPort: 5173
 ---
@@ -28,6 +28,6 @@ spec:
   selector:
     app: frontend
   ports:
-    - port: 5173
+    - port: 80
       targetPort: 5173
       nodePort: 31000
