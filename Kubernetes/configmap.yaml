@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: mysql-initdb-config
-  namespace: Academy-app
+  namespace: academy-app
 data:
   init.sql: |
     -- phpMyAdmin SQL Dump
