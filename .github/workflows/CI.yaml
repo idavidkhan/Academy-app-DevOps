@@ -1,1 +1,124 @@
+name: CI Pipeline
 
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  devsecops-pipeline:
+    runs-on: ubuntu-latest
+
+    env:
+      FRONTEND_IMAGE: ${{ secrets.DOCKERHUB_USERNAME }}/Academy-app-DevOps/tree/master/Frontend
+      BACKEND_IMAGE: ${{ secrets.DOCKERHUB_USERNAME }}/Academy-app-DevOps/tree/master/backend
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # ── SAST — scans entire codebase including both folders ──
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@master
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+
+      - name: SonarQube Quality Gate
+        uses: SonarSource/sonarqube-quality-gate-action@master
+        timeout-minutes: 5
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      # ── SCA — scans dependencies in both folders ──────────────
+      - name: Cache OWASP NVD Data
+        uses: actions/cache@v3
+        with:
+          path: ~/.dependency-check/data
+          key: owasp-${{ runner.os }}
+          restore-keys: owasp-${{ runner.os }}-
+
+      - name: OWASP Dependency Check — Frontend
+        uses: dependency-check/Dependency-Check_Action@main
+        with:
+          project: "academy-frontend"
+          path: "./Frontend"
+          format: "HTML"
+          args: --failOnCVSS 7 --enableRetired
+
+      - name: Upload OWASP Frontend Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: owasp-frontend-report
+          path: reports/
+
+      - name: OWASP Dependency Check — Backend
+        uses: dependency-check/Dependency-Check_Action@main
+        with:
+          project: "academy-backend"
+          path: "./backend"
+          format: "HTML"
+          args: --failOnCVSS 7 --enableRetired
+
+      - name: Upload OWASP Backend Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: owasp-backend-report
+          path: reports/
+
+      # ── DOCKER LOGIN ──────────────────────────────────────────
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # ── BUILD FRONTEND ────────────────────────────────────────
+      - name: Build Frontend Image
+        run: |
+          docker build \
+            -t ${{ env.FRONTEND_IMAGE }}:${{ github.sha }} \
+            -t ${{ env.FRONTEND_IMAGE }}:latest \
+            ./Frontend
+
+      # ── SCAN FRONTEND ─────────────────────────────────────────
+      - name: Trivy Scan — Frontend
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: ${{ env.FRONTEND_IMAGE }}:${{ github.sha }}
+          format: table
+          exit-code: "1"
+          severity: "HIGH,CRITICAL"
+          ignore-unfixed: true
+
+      # ── BUILD BACKEND ─────────────────────────────────────────
+      - name: Build Backend Image
+        run: |
+          docker build \
+            -t ${{ env.BACKEND_IMAGE }}:${{ github.sha }} \
+            -t ${{ env.BACKEND_IMAGE }}:latest \
+            ./backend
+
+      # ── SCAN BACKEND ──────────────────────────────────────────
+      - name: Trivy Scan — Backend
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: ${{ env.BACKEND_IMAGE }}:${{ github.sha }}
+          format: table
+          exit-code: "1"
+          severity: "HIGH,CRITICAL"
+          ignore-unfixed: true
+
+      # ── PUSH BOTH IMAGES ──────────────────────────────────────
+      - name: Push Frontend to DockerHub
+        run: |
+          docker push ${{ env.FRONTEND_IMAGE }}:${{ github.sha }}
+          docker push ${{ env.FRONTEND_IMAGE }}:latest
+
+      - name: Push Backend to DockerHub
+        run: |
+          docker push ${{ env.BACKEND_IMAGE }}:${{ github.sha }}
+          docker push ${{ env.BACKEND_IMAGE }}:latest
