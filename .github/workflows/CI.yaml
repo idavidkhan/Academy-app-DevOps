@@ -50,7 +50,7 @@ jobs:
           args: --failOnCVSS 7 --enableRetired
 
       - name: Upload OWASP Frontend Report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: owasp-frontend-report
           path: reports/
@@ -64,7 +64,7 @@ jobs:
           args: --failOnCVSS 7 --enableRetired
 
       - name: Upload OWASP Backend Report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: owasp-backend-report
           path: reports/
