@@ -9,3 +9,9 @@ backend/.env.docker
 # Uploads
 backend/uploads/*
 !backend/uploads/.gitkeep
+
+frontend/package-lock.json
+frontend/package.json
+frontend/node_modules
+backend/package.json
+backend/package-lock.json
