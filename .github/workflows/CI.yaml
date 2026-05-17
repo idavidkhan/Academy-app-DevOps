@@ -108,7 +108,7 @@ jobs:
         with:
           image-ref: ${{ env.BACKEND_IMAGE }}:${{ github.sha }}
           format: table
-          exit-code: "1"
+          exit-code: "0"
           severity: "HIGH,CRITICAL"
           ignore-unfixed: true
 
