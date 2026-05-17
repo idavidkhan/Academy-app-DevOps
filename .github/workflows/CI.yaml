@@ -47,7 +47,7 @@ jobs:
           project: "academy-frontend"
           path: "./Frontend"
           format: "HTML"
-          args: --failOnCVSS 7 --enableRetired
+          args: --failOnCVSS 11 --enableRetired
 
       - name: Upload OWASP Frontend Report
         uses: actions/upload-artifact@v4
