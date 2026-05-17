@@ -11,8 +11,8 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      FRONTEND_IMAGE: ${{ secrets.DOCKERHUB_USERNAME }}/Academy-app-DevOps/./Frontend
-      BACKEND_IMAGE: ${{ secrets.DOCKERHUB_USERNAME }}/Academy-app-DevOps/./backend
+      FRONTEND_IMAGE: ${{ secrets.DOCKERHUB_USERNAME }}/frontend_academy_app
+      BACKEND_IMAGE: ${{ secrets.DOCKERHUB_USERNAME }}/backend_academy-app
 
     steps:
       - name: Checkout Code
