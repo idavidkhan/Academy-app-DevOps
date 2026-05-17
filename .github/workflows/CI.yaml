@@ -2,17 +2,17 @@ name: CI Pipeline
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
   devsecops-pipeline:
     runs-on: ubuntu-latest
 
     env:
-      FRONTEND_IMAGE: ${{ secrets.DOCKERHUB_USERNAME }}/Academy-app-DevOps/tree/master/Frontend
-      BACKEND_IMAGE: ${{ secrets.DOCKERHUB_USERNAME }}/Academy-app-DevOps/tree/master/backend
+      FRONTEND_IMAGE: ${{ secrets.DOCKERHUB_USERNAME }}/Academy-app-DevOps/./Frontend
+      BACKEND_IMAGE: ${{ secrets.DOCKERHUB_USERNAME }}/Academy-app-DevOps/./backend
 
     steps:
       - name: Checkout Code
