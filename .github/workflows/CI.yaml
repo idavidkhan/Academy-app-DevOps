@@ -6,21 +6,20 @@ on:
   pull_request:
     branches: [master]
 
+env:
+  FRONTEND_IMAGE: ${{ secrets.DOCKERHUB_USERNAME }}/frontend_academy_app
+  BACKEND_IMAGE: ${{ secrets.DOCKERHUB_USERNAME }}/backend_academy-app
+  IMAGE_TAG: ${{ github.sha }}
+
 jobs:
-  devsecops-pipeline:
+  sonar_scan:
     runs-on: ubuntu-latest
-
-    env:
-      FRONTEND_IMAGE: ${{ secrets.DOCKERHUB_USERNAME }}/frontend_academy_app
-      BACKEND_IMAGE: ${{ secrets.DOCKERHUB_USERNAME }}/backend_academy-app
-
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      # ── SAST — scans entire codebase including both folders ──
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v5
         env:
@@ -33,7 +32,14 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-      # ── SCA — scans dependencies in both folders ──────────────
+  OWASP_Dependency_Check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
       - name: Cache OWASP NVD Data
         uses: actions/cache@v4
         with:
@@ -69,14 +75,14 @@ jobs:
           name: owasp-backend-report
           path: reports/
 
-      # ── DOCKER LOGIN ──────────────────────────────────────────
-      - name: Login to DockerHub
-        uses: docker/login-action@v3
+  IMAGE_BUILD:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          fetch-depth: 0
 
-      # ── BUILD FRONTEND ────────────────────────────────────────
       - name: Build Frontend Image
         run: |
           docker build \
@@ -84,7 +90,16 @@ jobs:
             -t ${{ env.FRONTEND_IMAGE }}:latest \
             ./Frontend
 
-      # ── SCAN FRONTEND ─────────────────────────────────────────
+      - name: Build Backend Image
+        run: |
+          docker build \
+            -t ${{ env.BACKEND_IMAGE }}:${{ github.sha }} \
+            -t ${{ env.BACKEND_IMAGE }}:latest \
+            ./backend
+
+  trivy_scan:
+    runs-on: ubuntu-latest
+    steps:
       - name: Trivy Scan — Frontend
         uses: aquasecurity/trivy-action@master
         with:
@@ -94,15 +109,6 @@ jobs:
           severity: "HIGH,CRITICAL"
           ignore-unfixed: true
 
-      # ── BUILD BACKEND ─────────────────────────────────────────
-      - name: Build Backend Image
-        run: |
-          docker build \
-            -t ${{ env.BACKEND_IMAGE }}:${{ github.sha }} \
-            -t ${{ env.BACKEND_IMAGE }}:latest \
-            ./backend
-
-      # ── SCAN BACKEND ──────────────────────────────────────────
       - name: Trivy Scan — Backend
         uses: aquasecurity/trivy-action@master
         with:
@@ -112,7 +118,18 @@ jobs:
           severity: "HIGH,CRITICAL"
           ignore-unfixed: true
 
-      # ── PUSH BOTH IMAGES ──────────────────────────────────────
+  PUSH_IMAGES:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
       - name: Push Frontend to DockerHub
         run: |
           docker push ${{ env.FRONTEND_IMAGE }}:${{ github.sha }}
@@ -122,3 +139,53 @@ jobs:
         run: |
           docker push ${{ env.BACKEND_IMAGE }}:${{ github.sha }}
           docker push ${{ env.BACKEND_IMAGE }}:latest
+
+  update_cd_repo:
+    runs-on: ubuntu-latest
+    needs: trivy_image_scan
+    steps:
+      - name: Checkout CD repo
+        uses: actions/checkout@v4
+        with:
+          repository: idavidkhan/Academy-app-DevOps-CD/
+          ref: main
+          token: ${{ secrets.CD_REPO_TOKEN }}
+          path: cd
+
+      - name: Bump images in manifests (safe)
+        working-directory: cd
+        env:
+          IMAGE_TAG: ${{ env.IMAGE_TAG }}
+        run: |
+          curl -sL https://github.com/mikefarah/yq/releases/download/v4.44.3/yq_linux_amd64 -o yq && sudo install yq /usr/local/bin/yq
+
+          # -- Safety cleanup: remove any accidental .spec.template from Service docs
+          yq -i '(. | select(.kind=="Service")) |= del(.spec.template)' Kubernetes/backend.yaml
+          yq -i '(. | select(.kind=="Service")) |= del(.spec.template)' Kubernetes/frontend.yaml
+
+          # -- Update ONLY Deployment images (backend)
+          yq -i '
+            (. | select(.kind=="Deployment")
+               | .spec.template.spec.containers[]
+               | select(.name=="backend")
+               | .image)
+            = "${{ env.BACKEND_IMAGE }}:" + strenv(IMAGE_TAG)
+          ' Kubernetes/backend.yaml
+
+          # -- Update ONLY Deployment images (frontend)
+          yq -i '
+            (. | select(.kind=="Deployment")
+               | .spec.template.spec.containers[]
+               | select(.name=="frontend")
+               | .image)
+            = "${{ env.FRONTEND_IMAGE }}:" + strenv(IMAGE_TAG)
+          ' Kubernetes/frontend.yaml
+
+      - name: Commit & push to CD repo
+        working-directory: cd
+        run: |
+          git config user.name "ci-bot"
+          git config user.email "ci-bot@users.noreply.github.com"
+          git add -A
+          git commit -m "bump images to ${IMAGE_TAG}" || echo "no changes"
+          git push
