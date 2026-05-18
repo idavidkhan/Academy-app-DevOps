@@ -99,31 +99,9 @@ jobs:
             -t ${{ env.BACKEND_IMAGE }}:latest \
             ./backend
 
-  trivy_scan:
-    runs-on: ubuntu-latest
-    needs: IMAGE_BUILD
-    steps:
-      - name: Trivy Scan — Frontend
-        uses: aquasecurity/trivy-action@master
-        with:
-          image-ref: ${{ env.FRONTEND_IMAGE }}:${{ github.sha }}
-          format: table
-          exit-code: "1"
-          severity: "HIGH,CRITICAL"
-          ignore-unfixed: true
-
-      - name: Trivy Scan — Backend
-        uses: aquasecurity/trivy-action@master
-        with:
-          image-ref: ${{ env.BACKEND_IMAGE }}:${{ github.sha }}
-          format: table
-          exit-code: "0"
-          severity: "HIGH,CRITICAL"
-          ignore-unfixed: true
-
   PUSH_IMAGES:
     runs-on: ubuntu-latest
-    needs: trivy_scan
+    needs: IMAGE_BUILD
     steps:
       - name: Login to DockerHub
         uses: docker/login-action@v3
@@ -143,6 +121,28 @@ jobs:
         run: |
           docker push ${{ env.BACKEND_IMAGE }}:${{ github.sha }}
           docker push ${{ env.BACKEND_IMAGE }}:latest
+
+  trivy_scan:
+    runs-on: ubuntu-latest
+    needs: PUSH_IMAGES
+    steps:
+      - name: Trivy Scan — Frontend
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: ${{ env.FRONTEND_IMAGE }}:${{ github.sha }}
+          format: table
+          exit-code: "1"
+          severity: "HIGH,CRITICAL"
+          ignore-unfixed: true
+
+      - name: Trivy Scan — Backend
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: ${{ env.BACKEND_IMAGE }}:${{ github.sha }}
+          format: table
+          exit-code: "0"
+          severity: "HIGH,CRITICAL"
+          ignore-unfixed: true
 
   update_cd_repo:
     runs-on: ubuntu-latest
