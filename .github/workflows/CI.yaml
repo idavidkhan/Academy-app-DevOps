@@ -147,7 +147,7 @@ jobs:
       - name: Checkout CD repo
         uses: actions/checkout@v4
         with:
-          repository: idavidkhan/Academy-app-DevOps-CD/
+          repository: idavidkhan/Academy-app-DevOps-CD
           ref: main
           token: ${{ secrets.CD_REPO_TOKEN }}
           path: cd
