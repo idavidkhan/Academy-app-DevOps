@@ -76,7 +76,7 @@ jobs:
           name: owasp-backend-report
           path: reports/
 
-  IMAGE_BUILD:
+  IMAGE_BUILD_PUSH:
     runs-on: ubuntu-latest
     needs: OWASP_Dependency_Check
     steps:
@@ -99,10 +99,6 @@ jobs:
             -t ${{ env.BACKEND_IMAGE }}:latest \
             ./backend
 
-  PUSH_IMAGES:
-    runs-on: ubuntu-latest
-    needs: IMAGE_BUILD
-    steps:
       - name: Login to DockerHub
         uses: docker/login-action@v3
         with:
@@ -146,7 +142,7 @@ jobs:
 
   update_cd_repo:
     runs-on: ubuntu-latest
-    needs: PUSH_IMAGES
+    needs: trivy_scan
     steps:
       - name: Checkout CD repo
         uses: actions/checkout@v4
