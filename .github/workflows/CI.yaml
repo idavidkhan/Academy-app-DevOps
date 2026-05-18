@@ -142,7 +142,7 @@ jobs:
 
   update_cd_repo:
     runs-on: ubuntu-latest
-    needs: trivy_image_scan
+    needs: PUSH_IMAGES
     steps:
       - name: Checkout CD repo
         uses: actions/checkout@v4
