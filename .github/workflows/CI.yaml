@@ -120,7 +120,7 @@ jobs:
 
   trivy_scan:
     runs-on: ubuntu-latest
-    needs: PUSH_IMAGES
+    needs: IMAGE_BUILD_PUSH
     steps:
       - name: Trivy Scan — Frontend
         uses: aquasecurity/trivy-action@master
